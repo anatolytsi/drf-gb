@@ -1,3 +1,9 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+
+class User(AbstractUser):
+    """
+    A standard User model from an AbstractUser to inherit the default fields from the latter
+    """
+    email = models.EmailField(unique=True)
