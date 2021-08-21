@@ -12,13 +12,15 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
 )
 
 # Reading .env file
-environ.Env.read_env()
+base = environ.Path(__file__) - 2  # Environment file is situated two folders back
+environ.Env.read_env(env_file=base('.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent

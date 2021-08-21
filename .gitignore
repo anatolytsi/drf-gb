@@ -1,4 +1,4 @@
 /.idea
 __pycache__/
 /todo_notes/db.sqlite3
-/todo_notes/todo_notes/.env
+/todo_notes/.env
