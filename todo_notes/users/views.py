@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from users.models import User
+from users.serializers import UserModelSerializer
+
+
+class UserModelViewSet(ModelViewSet):
+    """
+    Provides actions to list, retrieve, create, update or destroy User model/-s
+    """
+    queryset = User.objects.all()
+    serializer_class = UserModelSerializer
