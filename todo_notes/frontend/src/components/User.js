@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const UserItem = ({user}) => {
@@ -22,13 +23,13 @@ const UserItem = ({user}) => {
 
 const UserList = ({users}) => {
     return (
-        <table>
+        <table className='table table-striped table-borderless mx-auto w-auto' style={{'width': '50%'}}>
             <thead>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Email</th>
-                <th>Username</th>
+                <th scope='col' style={{'width': '15%'}}>First name</th>
+                <th scope='col' style={{'width': '25%'}}>Last name</th>
+                <th scope='col' style={{'width': '30%'}}>Email</th>
+                <th scope='col' style={{'width': '30%'}}>Username</th>
             </tr>
             </thead>
             <tbody>
