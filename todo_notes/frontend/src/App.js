@@ -3,6 +3,8 @@ import React from 'react';
 import UserList from './components/User';
 import axios from "axios";
 
+const baseUrl = 'http://localhost:8000/api';
+const usersPath = '/users';
 
 class App extends React.Component {
     constructor(props) {
@@ -13,7 +15,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/api/users/')
+        axios.get(`${baseUrl}${usersPath}`)
             .then(response => {
                 const users = response.data;
                 this.setState(
