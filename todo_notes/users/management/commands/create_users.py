@@ -19,9 +19,9 @@ class Command(BaseCommand):
         print(f'Superuser {su} was created')
         count = options['count']
         for i in range(count):
-            user = User.objects.create(username=f'user{i}',
-                                       first_name=f'fname{i}',
-                                       last_name=f'lname{i}',
-                                       email=f'{i}@mail.com')
+            user = User.objects.create_user(username=f'user{i}',
+                                            first_name=f'fname{i}',
+                                            last_name=f'lname{i}',
+                                            email=f'{i}@mail.com')
             print(f'User {user} was created')
         print('Done')
