@@ -32,7 +32,7 @@ const UserList = ({users}) => {
             </tr>
             </thead>
             <tbody>
-            {users.map((user) => <UserItem key={user.username} user={user}/>)}
+            {users.map((user) => <UserItem key={/* email key is unique */user.email} user={user}/>)}
             </tbody>
         </table>
     )
