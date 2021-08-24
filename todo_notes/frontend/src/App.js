@@ -2,6 +2,8 @@ import './App.css';
 import React from 'react';
 import UserList from './components/User';
 import axios from "axios";
+import Menu from "./components/Menu";
+import Footer from "./components/Footer";
 
 const baseUrl = 'http://localhost:8000/api';
 const usersPath = '/users';
@@ -30,7 +32,9 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <Menu/>
                 <UserList users={this.state.users}/>
+                <Footer/>
             </div>
         );
     }
