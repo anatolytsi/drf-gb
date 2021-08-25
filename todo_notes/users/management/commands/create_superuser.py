@@ -31,15 +31,9 @@ def create_superuser(
     :return: user model instance
     """
 
-    user = User(
-        username=username,
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-    )
-    user.set_password(password)
-    user.is_superuser = True
-    user.is_staff = True
-    user.save()
-
+    user = User.objects.create_superuser(username=username,
+                                         email=email,
+                                         first_name=first_name,
+                                         last_name=last_name,
+                                         password=password)
     return user
