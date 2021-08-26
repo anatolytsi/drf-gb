@@ -1,11 +1,13 @@
 import './App.css';
 import React from 'react';
-import UserList from './components/User';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import axios from "axios";
 import Menu from "./components/Menu";
+import Home from "./components/Home";
 import Footer from "./components/Footer";
+import UserList from './components/User';
 import ProjectList from './components/Project';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import NoteList from './components/Note';
 
 const apiUrl = 'http://localhost:8000/api/';
 const getUrl = (name) => `${apiUrl}${name}`;
@@ -15,7 +17,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             'users': [],
-            'projects': []
+            'projects': [],
+            'notes': []
         };
     }
 
@@ -40,6 +43,16 @@ class App extends React.Component {
                 );
             })
             .catch(error => console.error(error));
+        axios.get(getUrl('notes'))
+            .then(response => {
+                const notes = response.data;
+                this.setState(
+                    {
+                        notes
+                    }
+                );
+            })
+            .catch(error => console.error(error));
     }
 
     render() {
@@ -47,6 +60,7 @@ class App extends React.Component {
             <Router>
                 <Menu/>
                 <Switch>
+                    <Route path='/' exact component={Home}/>
                     <Route
                         path='/users'
                         render={(props) => (
@@ -57,6 +71,12 @@ class App extends React.Component {
                         path='/projects'
                         render={(props) => (
                             <ProjectList {...props} projects={this.state.projects}/>
+                        )}
+                    />
+                    <Route
+                        path='/notes'
+                        render={(props) => (
+                            <NoteList {...props} notes={this.state.notes}/>
                         )}
                     />
                 </Switch>
