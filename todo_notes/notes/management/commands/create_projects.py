@@ -28,7 +28,7 @@ class Command(BaseCommand):
         print('Done')
 
 
-def generate_random_url() -> str:
+def generate_random_url():
     ip0 = str(random.randint(0, 255))
     ip1 = str(random.randint(0, 255))
     ip2 = str(random.randint(0, 255))
@@ -36,7 +36,7 @@ def generate_random_url() -> str:
     return f'http://{ip0}.{ip1}.{ip2}.{ip3}'
 
 
-def get_random_users(users, num_of_users=None) -> list:
+def get_random_users(users, num_of_users=None):
     total_num_of_users = len(users)
     user_list = []
     if not num_of_users:
