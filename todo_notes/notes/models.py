@@ -12,7 +12,7 @@ class Project(models.Model):
     users = models.ManyToManyField(User)
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
 
 class Note(models.Model):
