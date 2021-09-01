@@ -1,6 +1,7 @@
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet
 
+from notes.filters import NoteFilter, ProjectFilter
 from notes.models import Project, Note
 from notes.serializers import ProjectModelSerializer, NoteModelSerializer
 
@@ -16,6 +17,7 @@ class ProjectModelViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination
+    filterset_class = ProjectFilter
 
 
 class NoteLimitOffsetPagination(LimitOffsetPagination):
@@ -29,3 +31,4 @@ class NoteModelViewSet(ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteModelSerializer
     pagination_class = NoteLimitOffsetPagination
+    filterset_class = NoteFilter
