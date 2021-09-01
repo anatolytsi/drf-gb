@@ -5,14 +5,17 @@ from notes.models import Project, Note
 
 class ProjectFilter(filters.FilterSet):
     name = filters.CharFilter(lookup_expr='contains')
+    users = filters.CharFilter(field_name='users__username', lookup_expr='contains')
 
     class Meta:
         model = Project
-        fields = ['name']
+        fields = ['name', 'users']
 
 
 class NoteFilter(filters.FilterSet):
+    project__name = filters.CharFilter(lookup_expr='contains')
+    author__username = filters.CharFilter(lookup_expr='contains')
 
     class Meta:
         model = Note
-        fields = ['project']
+        fields = ['project', 'project__name', 'author__username']
