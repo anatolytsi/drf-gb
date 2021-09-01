@@ -12,7 +12,6 @@ class ProjectFilter(filters.FilterSet):
 
 
 class NoteFilter(filters.FilterSet):
-    name = filters.CharFilter(lookup_expr='contains')
 
     class Meta:
         model = Note
