@@ -1,4 +1,4 @@
-from django_filters import rest_framework as filters
+from django_filters import rest_framework as filters, DateFromToRangeFilter
 
 from notes.models import Project, Note
 
@@ -15,7 +15,8 @@ class ProjectFilter(filters.FilterSet):
 class NoteFilter(filters.FilterSet):
     project__name = filters.CharFilter(lookup_expr='contains')
     author__username = filters.CharFilter(lookup_expr='contains')
+    created_at = DateFromToRangeFilter()
 
     class Meta:
         model = Note
-        fields = ['project', 'project__name', 'author__username']
+        fields = ['project', 'project__name', 'author__username', 'created_at']
