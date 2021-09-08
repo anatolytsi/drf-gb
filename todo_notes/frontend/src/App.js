@@ -70,24 +70,9 @@ class App extends React.Component {
                 <Menu/>
                 <Switch>
                     <Route path='/' exact component={Home}/>
-                    <Route
-                        path='/users'
-                        render={(props) => (
-                            <UserList {...props} users={this.state.users}/>
-                        )}
-                    />
-                    <Route
-                        path='/projects'
-                        render={(props) => (
-                            <ProjectList {...props} projects={this.state.projects}/>
-                        )}
-                    />
-                    <Route
-                        path='/notes'
-                        render={(props) => (
-                            <NoteList {...props} notes={this.state.notes}/>
-                        )}
-                    />
+                    <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />
+                    <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />
+                    <Route exact path='/notes' component={() => <NoteList notes={this.state.notes}/>} />
                     <Redirect from='/' to='/projects' />
                     <Route component={notFound404} />
                 </Switch>
