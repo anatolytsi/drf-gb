@@ -12,6 +12,15 @@ import NoteList from './components/Note';
 const apiUrl = 'http://localhost:8000/api/';
 const getUrl = (name) => `${apiUrl}${name}`;
 
+const notFound404 = ({location}) => {
+    return (
+        <div className='d-flex align-items-center justify-content-center' style={{'height': '30em'}}>
+            <h1 className='d-inline-block'>Страница по адресу '{location.pathname}' не найдена</h1>
+        </div>
+
+    )
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -79,6 +88,7 @@ class App extends React.Component {
                             <NoteList {...props} notes={this.state.notes}/>
                         )}
                     />
+                    <Route component={notFound404} />
                 </Switch>
                 <Footer/>
             </Router>
