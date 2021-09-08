@@ -3,7 +3,6 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import axios from "axios";
 import Menu from "./components/Menu";
-import Home from "./components/Home";
 import Footer from "./components/Footer";
 import UserList from './components/User';
 import ProjectList from './components/Project';
@@ -70,7 +69,6 @@ class App extends React.Component {
             <Router>
                 <Menu/>
                 <Switch>
-                    <Route path='/' exact component={Home}/>
                     <Route exact path='/users' component={() => <UserList users={this.state.users}/>}/>
                     <Route exact path='/projects' component={() => <ProjectList users={this.state.users}
                                                                                 projects={this.state.projects}/>}/>
