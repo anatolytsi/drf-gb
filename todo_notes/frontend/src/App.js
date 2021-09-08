@@ -15,7 +15,7 @@ const getUrl = (name) => `${apiUrl}${name}`;
 const notFound404 = ({location}) => {
     return (
         <div className='d-flex align-items-center justify-content-center' style={{'height': '30em'}}>
-            <h1 className='d-inline-block'>Страница по адресу '{location.pathname}' не найдена</h1>
+            <h1 className='d-inline-block'>Page '{location.pathname}' not found</h1>
         </div>
 
     )
