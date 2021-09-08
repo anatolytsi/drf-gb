@@ -77,7 +77,9 @@ class App extends React.Component {
                     <Route path='/projects/:projectId' component={() =>
                         <ProjectNotesList users={this.state.users} projects={this.state.projects} notes={this.state.notes} />
                     }/>
-                    <Route exact path='/notes' component={() => <NoteList notes={this.state.notes}/>} />
+                    <Route exact path='/notes' component={() => <NoteList users={this.state.users}
+                                                                          notes={this.state.notes}
+                                                                          projects={this.state.projects}/>} />
                     <Redirect from='/' to='/projects' />
                     <Route component={notFound404} />
                 </Switch>
