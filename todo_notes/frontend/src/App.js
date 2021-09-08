@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import UserList from './components/User';
 import ProjectList from './components/Project';
 import NoteList from './components/Note';
+import ProjectNotesList from './components/ProjectNote';
 
 const apiUrl = 'http://localhost:8000/api/';
 const getUrl = (name) => `${apiUrl}${name}`;
@@ -72,6 +73,9 @@ class App extends React.Component {
                     <Route path='/' exact component={Home}/>
                     <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />
+                    <Route path='/projects/:projectId' component={() =>
+                        <ProjectNotesList users={this.state.users} projects={this.state.projects} notes={this.state.notes} />
+                    }/>
                     <Route exact path='/notes' component={() => <NoteList notes={this.state.notes}/>} />
                     <Redirect from='/' to='/projects' />
                     <Route component={notFound404} />
