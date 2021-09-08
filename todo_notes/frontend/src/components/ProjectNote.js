@@ -4,11 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const ProjectNoteItem = ({author, note}) => {
-    let authorLink = `/users/${author?.url.split('users/')?.[1]}`;
     return (
         <tr>
             <td>
-                <Link to={authorLink}
+                <Link to={`/users/${author?.id}`}
                       className='text-decoration-none'>{`${author?.first_name} ${author?.last_name}`}</Link>
             </td>
             <td>
@@ -29,9 +28,8 @@ const ProjectNoteItem = ({author, note}) => {
 
 const ProjectNotesList = ({users, projects, notes}) => {
     let {projectId} = useParams();
-    let projectUrl = `projects/${projectId}`;
-    let project = projects.filter((project) => project.url.includes(projectUrl))?.[0];
-    let projectNotes = notes.filter((note) => note.project.includes(projectUrl));
+    let project = projects?.filter((project) => project.id === +projectId);
+    let projectNotes = notes?.filter((note) => note.project === +projectId);
     return (
         <div>
             <h1 className='text-center'>{project?.name}</h1>
@@ -47,8 +45,8 @@ const ProjectNotesList = ({users, projects, notes}) => {
                 </thead>
                 <tbody>
                 {projectNotes.map((note) => {
-                    let author = users?.filter((user) => user.url === note.author)?.[0];
-                    return <ProjectNoteItem key={note.url} author={author} note={note}/>;
+                    let author = users?.find((user) => user.id === note.author);
+                    return <ProjectNoteItem key={note.id} author={author} note={note}/>;
                 })}
                 </tbody>
             </table>

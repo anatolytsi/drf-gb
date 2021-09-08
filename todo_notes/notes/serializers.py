@@ -1,9 +1,9 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 
 from notes.models import Project, Note
 
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
+class ProjectModelSerializer(ModelSerializer):
     """
     A serializer (i.e. convert querysets and model instances to Python datatypes or back) that corresponds to the
     Project model field
@@ -15,7 +15,7 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
         fields = '__all__'  # The model is custom built so we need all the fields we put there
 
 
-class NoteModelSerializer(HyperlinkedModelSerializer):
+class NoteModelSerializer(ModelSerializer):
     """
     A serializer (i.e. convert querysets and model instances to Python datatypes or back) that corresponds to the Note
     model field

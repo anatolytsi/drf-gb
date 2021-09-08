@@ -4,15 +4,13 @@ import {Link} from "react-router-dom";
 
 
 const NoteItem = ({project, author, note}) => {
-    let projectLink = `/projects/${project?.url.split('projects/')?.[1]}`;
-    let authorLink = `/users/${author?.url.split('users/')?.[1]}`;
     return (
         <tr>
             <td>
-                <Link to={projectLink} className='text-decoration-none'>{project?.name}</Link>
+                <Link to={`/projects/${project?.id}`} className='text-decoration-none'>{project?.name}</Link>
             </td>
             <td>
-                <Link to={authorLink} className='text-decoration-none'>{`${author?.first_name} ${author?.last_name}`}</Link>
+                <Link to={`/users/${author?.id}`} className='text-decoration-none'>{`${author?.first_name} ${author?.last_name}`}</Link>
             </td>
             <td>
                 {note?.body}
@@ -45,9 +43,9 @@ const NoteList = ({projects, users, notes}) => {
             </thead>
             <tbody>
             {notes.map((note) => {
-                let project = projects?.find((project) => project.url === note.project);
-                let author = users?.find((user) => user.url === note.author);
-                return <NoteItem key={note.url} project={project} author={author} note={note}/>
+                let project = projects?.find((project) => project.id === note.project);
+                let author = users?.find((user) => user.id === note.author);
+                return <NoteItem key={note.id} project={project} author={author} note={note}/>
             })}
             </tbody>
         </table>
