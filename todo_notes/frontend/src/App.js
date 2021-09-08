@@ -71,17 +71,19 @@ class App extends React.Component {
                 <Menu/>
                 <Switch>
                     <Route path='/' exact component={Home}/>
-                    <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />
+                    <Route exact path='/users' component={() => <UserList users={this.state.users}/>}/>
                     <Route exact path='/projects' component={() => <ProjectList users={this.state.users}
-                                                                                projects={this.state.projects}/>} />
+                                                                                projects={this.state.projects}/>}/>
                     <Route path='/projects/:projectId' component={() =>
-                        <ProjectNotesList users={this.state.users} projects={this.state.projects} notes={this.state.notes} />
+                        <ProjectNotesList users={this.state.users}
+                                          projects={this.state.projects}
+                                          notes={this.state.notes}/>
                     }/>
                     <Route exact path='/notes' component={() => <NoteList users={this.state.users}
                                                                           notes={this.state.notes}
-                                                                          projects={this.state.projects}/>} />
-                    <Redirect from='/' to='/projects' />
-                    <Route component={notFound404} />
+                                                                          projects={this.state.projects}/>}/>
+                    <Redirect from='/' to='/projects'/>
+                    <Route component={notFound404}/>
                 </Switch>
                 <Footer/>
             </Router>

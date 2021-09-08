@@ -5,8 +5,6 @@ import {Link} from "react-router-dom";
 
 const ProjectItem = ({users, project}) => {
     let projectUsers = users?.filter((user) => project?.users.filter((prjUserId) => user.id === prjUserId));
-    // let projectUsers = users?.filter(
-    //     (user) => project?.users?.filter((projectUserUrl) => projectUserUrl === user.url));
     let projectUsersDispatched = [];
     for (let i = 0; i < project?.users.length; i++) {
         projectUsersDispatched.push({
