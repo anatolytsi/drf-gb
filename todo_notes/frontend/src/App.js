@@ -34,7 +34,7 @@ class App extends React.Component {
     componentDidMount() {
         axios.get(getUrl('users'))
             .then(response => {
-                const users = response.data;
+                const users = response.data.results;
                 this.setState(
                     {
                         users
@@ -44,7 +44,7 @@ class App extends React.Component {
             .catch(error => console.error(error));
         axios.get(getUrl('projects'))
             .then(response => {
-                const projects = response.data;
+                const projects = response.data.results;
                 this.setState(
                     {
                         projects
@@ -54,7 +54,7 @@ class App extends React.Component {
             .catch(error => console.error(error));
         axios.get(getUrl('notes'))
             .then(response => {
-                const notes = response.data;
+                const notes = response.data.results;
                 this.setState(
                     {
                         notes
