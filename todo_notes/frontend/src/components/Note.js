@@ -41,7 +41,7 @@ const NoteList = ({notes}) => {
             </tr>
             </thead>
             <tbody>
-            {notes.map((note) => <NoteItem key={/* name key is unique */note.name} note={note}/>)}
+            {notes.map((note) => <NoteItem key={note.url} note={note}/>)}
             </tbody>
         </table>
     )
