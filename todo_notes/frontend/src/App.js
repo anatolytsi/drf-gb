@@ -32,35 +32,22 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(getUrl('users'))
-            .then(response => {
-                const users = response.data.results;
+        axios.all(
+            [
+                axios.get(getUrl('users')),
+                axios.get(getUrl('projects')),
+                axios.get(getUrl('notes'))
+            ]
+        )
+            .then(axios.spread((users, projects, notes) => {
                 this.setState(
                     {
-                        users
+                        'users': users.data.results,
+                        'projects': projects.data.results,
+                        'notes': notes.data.results,
                     }
-                );
-            })
-            .catch(error => console.error(error));
-        axios.get(getUrl('projects'))
-            .then(response => {
-                const projects = response.data.results;
-                this.setState(
-                    {
-                        projects
-                    }
-                );
-            })
-            .catch(error => console.error(error));
-        axios.get(getUrl('notes'))
-            .then(response => {
-                const notes = response.data.results;
-                this.setState(
-                    {
-                        notes
-                    }
-                );
-            })
+                )
+            }))
             .catch(error => console.error(error));
     }
 
