@@ -12,7 +12,7 @@ class Project(models.Model):
     users = models.ManyToManyField(User)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['pk']
 
     def __str__(self):
         return f'{self.name}'
@@ -30,4 +30,4 @@ class Note(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['pk']

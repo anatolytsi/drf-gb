@@ -9,7 +9,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['pk']
 
     def __str__(self):
         return f'{self.username} | {self.email} | {self.first_name} {self.last_name}'
