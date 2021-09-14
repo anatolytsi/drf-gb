@@ -8,6 +8,7 @@ import UserList from './components/User';
 import ProjectList from './components/Project';
 import NoteList from './components/Note';
 import ProjectNotesList from './components/ProjectNote';
+import LoginForm from './components/Auth';
 
 const apiUrl = 'http://localhost:8000/api/';
 const getUrl = (name) => `${apiUrl}${name}`;

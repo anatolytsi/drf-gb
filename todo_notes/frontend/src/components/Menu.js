@@ -22,6 +22,9 @@ const Menu = () => {
                     </Link>
                 </div>
             </div>
+            <Link to='/login' className="ms-2 navbar-brand">
+                Login
+            </Link>
         </nav>
     )
 }
