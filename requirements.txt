@@ -6,3 +6,5 @@ djangorestframework==3.12.4
 djangorestframework-camel-case==1.2.0
 djangorestframework-simplejwt==4.8.0
 Markdown==3.3.4
+mixer==7.1.2
+PyJWT==2.1.0
