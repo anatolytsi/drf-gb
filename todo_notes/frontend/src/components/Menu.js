@@ -30,7 +30,7 @@ class Menu extends React.Component {
                 {this.props.isAuthenticated ?
                     <a onClick={() => {
                         this.props.logout()
-                    }} className='ms-2 navbar-brand'>Logout</a> :
+                    }} className='ms-2 navbar-brand'>{`${this.props.username} | Logout`}</a> :
                     <Link to='/login' className='ms-2 navbar-brand'>
                         Login
                     </Link>

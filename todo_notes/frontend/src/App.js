@@ -32,12 +32,13 @@ class App extends React.Component {
             'users': [],
             'projects': [],
             'notes': [],
-            'token': ''
+            'token': '',
+            'username': ''
         };
     }
 
     logout() {
-        this.setToken('');
+        this.setTokenAndUser('', '');
         this.setState({
             'users': [],
             'projects': [],
@@ -81,33 +82,37 @@ class App extends React.Component {
             .catch(error => console.error(error));
     }
 
-    setToken(token) {
+    setTokenAndUser(token, username) {
         const cookies = new Cookies();
         cookies.set('token', token);
-        this.setState({token}, () => this.loadData());
+        cookies.set('username', username);
+        this.setState({token, username}, () => this.loadData());
     }
 
-    getToken(username, password) {
+    getTokenAndUser(username, password) {
         axios.post(getUrl('api-token-auth'), {username, password})
             .then(response => {
-                this.setToken(response.data['token']);
+                this.setTokenAndUser(response.data['token'], username);
             }).catch(err => alert('Invalid login or password'))
     }
 
-    getTokenFromStorage() {
+    getTokenAndUserFromStorage() {
         const cookies = new Cookies();
         const token = cookies.get('token');
-        this.setState({token}, () => this.loadData());
+        const username = cookies.get('username');
+        this.setState({token, username}, () => this.loadData());
     }
 
     componentDidMount() {
-        this.getTokenFromStorage();
+        this.getTokenAndUserFromStorage();
     }
 
     render() {
         return (
             <Router>
-                <Menu isAuthenticated={this.isAuthenticated()} logout={() => this.logout()}/>
+                <Menu isAuthenticated={this.isAuthenticated()}
+                      logout={() => this.logout()}
+                      username={this.state.username}/>
                 <Switch>
                     <Route exact path='/users' component={() => {
                         if (!this.isAuthenticated()) return <Redirect to='/login'/>;
@@ -132,7 +137,7 @@ class App extends React.Component {
                     }}/>
                     <Route exact path='/login' component={() => {
                         if (this.isAuthenticated()) return <Redirect to='/'/>;
-                        return <LoginForm getToken={(username, password) => this.getToken(username, password)}/>
+                        return <LoginForm getToken={(username, password) => this.getTokenAndUser(username, password)}/>
                     }}/>
                     <Redirect from='/' to='/projects'/>
                     <Route component={notFound404}/>
