@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from "react-router-dom";
 
 
 class LoginForm extends React.Component {
@@ -16,6 +17,7 @@ class LoginForm extends React.Component {
 
     submitHandler(event) {
         event.preventDefault();
+        this.props.getToken(this.state.username, this.state.password);
     }
 
     render() {
