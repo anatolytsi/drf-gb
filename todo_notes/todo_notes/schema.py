@@ -13,6 +13,25 @@ class UserType(DjangoObjectType):
         fields = '__all__'
 
 
+class UserMutation(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+        first_name = graphene.String()
+        last_name = graphene.String()
+        email = graphene.String()  # No Email field type :(
+
+    user = graphene.Field(UserType)
+
+    @classmethod
+    def mutate(cls, self, info, id, first_name='', last_name='', email=''):
+        user = User.objects.get(pk=id)
+        user.first_name = first_name if first_name else user.first_name
+        user.last_name = last_name if last_name else user.last_name
+        user.email = email if email else user.email
+        user.save()
+        return UserMutation(user=user)
+
+
 class ProjectType(DjangoObjectType):
     class Meta:
         model = Project
@@ -64,4 +83,8 @@ class Query(graphene.ObjectType):
         return Note.objects.filter(body__contains=body)
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(graphene.ObjectType):
+    update_user = UserMutation.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
