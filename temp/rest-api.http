@@ -1,0 +1,36 @@
+POST http://localhost:8000/api-token-auth/
+Content-Type: application/json
+
+{
+  "username": "django_user1",
+  "password": "geekbrains"
+}
+
+###
+POST http://localhost:8000/api-token-auth/
+Content-Type: application/json
+
+{
+  "username": "django_user2",
+  "password": "geekbrains"
+}
+
+###
+POST http://localhost:8000/api-token-auth/
+Content-Type: application/json
+
+{
+  "username": "django_user3",
+  "password": "geekbrains"
+}
+
+###
+POST http://localhost:8000/api-token-auth/
+Content-Type: application/json
+
+{
+  "username": "django",
+  "password": "geekbrains"
+}
+
+###
