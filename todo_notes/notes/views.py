@@ -1,6 +1,7 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
+from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.viewsets import ModelViewSet
 
 from notes.filters import NoteFilter, ProjectFilter
@@ -37,7 +38,7 @@ class NoteModelViewSet(ModelViewSet):
 
     def destroy(self, request, pk=None, *args, **kwargs):
         note = get_object_or_404(Note, pk=pk)
-        serializer = NoteModelSerializer(note, context={'request': request})
-        note.is_active = False
-        note.save()
-        return Response(serializer.data)
+        serializer = self.get_serializer(note, data={'is_active': False}, partial=True)
+        serializer.is_valid()
+        serializer.save()
+        return Response(status=HTTP_204_NO_CONTENT)
