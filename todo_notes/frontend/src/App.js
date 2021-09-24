@@ -11,6 +11,7 @@ import ProjectNotesList from './components/ProjectNote';
 import LoginForm from './components/Auth';
 import Cookies from 'universal-cookie/es6';
 import ProjectForm from "./components/ProjectForm";
+import NoteForm from "./components/NoteForm";
 
 const baseUrl = 'http://localhost:8000';
 const apiUrl = `${baseUrl}/api`;
@@ -157,6 +158,18 @@ class App extends React.Component {
         });
     }
 
+    createNote(props) {
+        if (!this.isAuthenticated()) return;
+        const headers = this.getHeaders();
+        props.isActive = true;
+        props.author = this.state.users.find((user) => user.username === this.state.username).id;
+        axios.post(getApiUrl(`notes`), {...props}, {headers})
+            .then(response => {
+                this.setState({notes: [...this.state.notes, response.data]})
+            })
+            .catch(error => console.log(error))
+    }
+
     deleteProject(id) {
         if (!this.isAuthenticated()) return;
         const headers = this.getHeaders();
@@ -170,7 +183,7 @@ class App extends React.Component {
     createProject(props) {
         if (!this.isAuthenticated()) return;
         const headers = this.getHeaders();
-        props.users = [props.users, ];
+        props.users = [props.users,];
         axios.post(getApiUrl(`projects`), {...props}, {headers})
             .then(response => {
                 this.setState({projects: [...this.state.projects, response.data]})
@@ -215,7 +228,7 @@ class App extends React.Component {
                     }}/>
                     <Route exact path='/projects/create' component={() => {
                         return <ProjectForm users={this.state.users}
-                                            createProject={(name, repoLink, user) => this.createProject(name, repoLink, user)}/>
+                                            createProject={(props) => this.createProject(props)}/>
                     }}/>
                     <Route path='/projects/:projectId' component={() => {
                         if (!this.isAuthenticated()) return <Redirect to='/login'/>;
@@ -232,6 +245,10 @@ class App extends React.Component {
                                          notes={this.state.notes}
                                          projects={this.state.projects}
                                          updateNote={(id) => this.updateNote(id)}/>;
+                    }}/>
+                    <Route exact path='/notes/create' component={() => {
+                        return <NoteForm projects={this.state.projects}
+                                         createNote={(props) => this.createNote(props)}/>
                     }}/>
                     <Route exact path='/login' component={() => {
                         if (this.isAuthenticated()) return <Redirect to='/'/>;
