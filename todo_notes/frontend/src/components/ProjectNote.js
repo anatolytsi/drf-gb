@@ -3,7 +3,7 @@ import {Link, useParams} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const ProjectNoteItem = ({author, note}) => {
+const ProjectNoteItem = ({author, note, updateNote}) => {
     return (
         <tr>
             <td>
@@ -20,13 +20,14 @@ const ProjectNoteItem = ({author, note}) => {
                 {note?.updatedAt}
             </td>
             <td>
-                <input type='checkbox' defaultChecked={note?.isActive} disabled/>
+                <input type='checkbox' style={{'width': '20px', 'height': '20px'}} defaultChecked={note?.isActive}
+                       onChange={() => updateNote(note?.id)}/>
             </td>
         </tr>
     )
 };
 
-const ProjectNotesList = ({users, projects, notes}) => {
+const ProjectNotesList = ({users, projects, notes, updateNote}) => {
     let {projectId} = useParams();
     let project = projects?.filter((project) => project.id === +projectId);
     let projectNotes = notes?.filter((note) => note.project === +projectId);
@@ -46,7 +47,7 @@ const ProjectNotesList = ({users, projects, notes}) => {
                 <tbody>
                 {projectNotes.map((note) => {
                     let author = users?.find((user) => user.id === note.author);
-                    return <ProjectNoteItem key={note.id} author={author} note={note}/>;
+                    return <ProjectNoteItem key={note.id} author={author} note={note} updateNote={updateNote}/>;
                 })}
                 </tbody>
             </table>

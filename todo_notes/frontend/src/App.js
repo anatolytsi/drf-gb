@@ -107,6 +107,56 @@ class App extends React.Component {
         this.getTokenAndUserFromStorage();
     }
 
+    deleteNote(id) {
+        console.log(`Deleting note ${id}`)
+        if (!this.isAuthenticated()) return;
+        const headers = this.getHeaders();
+        axios.delete(getApiUrl(`notes/${id}`), {headers})
+            .then(response => {
+                this.setState({
+                    notes: this.state.notes.map((note) => {
+                        if (note.id === id) {
+                            note.isActive = false;
+                        }
+                        return note;
+                    })
+                })
+                // Мы же не удаляем заметки полностью, а просто деактивируем. Поэтому надо просто снять галочку
+                // this.setState({notes: this.state.notes.filter((note) => note.id !== id)})
+            })
+            .catch(error => console.error(error));
+    }
+
+    restoreNote(id) {
+        const headers = this.getHeaders();
+        axios.patch(getApiUrl(`notes/${id}`), {isActive: true}, {headers})
+            .then(response => {
+                this.setState({
+                    notes: this.state.notes.map((note) => {
+                        if (note.id === id) {
+                            note.isActive = true;
+                        }
+                        return note;
+                    })
+                })
+            })
+            .catch(error => console.error(error));
+    }
+
+    updateNote(id) {
+        this.state.notes.find((note) => {
+            let condition = note.id === id;
+            if (condition) {
+                if (note.isActive) {
+                    this.deleteNote(id);
+                } else {
+                    this.restoreNote(id);
+                }
+            }
+            return condition;
+        });
+    }
+
     render() {
         return (
             <Router>
@@ -127,13 +177,15 @@ class App extends React.Component {
                         if (!this.isAuthenticated()) return <Redirect to='/login'/>;
                         return <ProjectNotesList users={this.state.users}
                                                  projects={this.state.projects}
-                                                 notes={this.state.notes}/>
+                                                 notes={this.state.notes}
+                                                 updateNote={(id) => this.updateNote(id)}/>
                     }}/>
                     <Route exact path='/notes' component={() => {
                         if (!this.isAuthenticated()) return <Redirect to='/login'/>;
                         return <NoteList users={this.state.users}
                                          notes={this.state.notes}
-                                         projects={this.state.projects}/>;
+                                         projects={this.state.projects}
+                                         updateNote={(id) => this.updateNote(id)}/>;
                     }}/>
                     <Route exact path='/login' component={() => {
                         if (this.isAuthenticated()) return <Redirect to='/'/>;
