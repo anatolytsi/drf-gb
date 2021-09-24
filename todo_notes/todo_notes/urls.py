@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from graphene_django.views import GraphQLView
@@ -44,6 +45,8 @@ router.register('notes', NoteModelViewSet)  # Register Note model view set with 
 router.register('projects', ProjectModelViewSet)  # Register Project model view set with the router
 
 urlpatterns = [
+    path('react/', TemplateView.as_view(template_name='index.html')),
+
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),  # These urls are now determined automatically by the router
     path('api-token-auth/', views.obtain_auth_token),
