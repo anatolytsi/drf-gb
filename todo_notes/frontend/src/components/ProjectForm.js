@@ -46,14 +46,12 @@ class ProjectForm extends React.Component {
                                 {this.props.users.map((item) => <option value={item.id}>{item.username}</option>)}
                             </select>
                         </div>
-
                         <button className='btn btn-success' type='submit'>Create!</button>
                     </div>
                 </form>
             </div>
         )
     }
-
 }
 
 export default ProjectForm
