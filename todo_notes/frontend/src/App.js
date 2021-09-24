@@ -10,6 +10,7 @@ import NoteList from './components/Note';
 import ProjectNotesList from './components/ProjectNote';
 import LoginForm from './components/Auth';
 import Cookies from 'universal-cookie/es6';
+import ProjectForm from "./components/ProjectForm";
 
 const baseUrl = 'http://localhost:8000';
 const apiUrl = `${baseUrl}/api`;
@@ -108,7 +109,6 @@ class App extends React.Component {
     }
 
     deleteNote(id) {
-        console.log(`Deleting note ${id}`)
         if (!this.isAuthenticated()) return;
         const headers = this.getHeaders();
         axios.delete(getApiUrl(`notes/${id}`), {headers})
@@ -157,6 +157,45 @@ class App extends React.Component {
         });
     }
 
+    deleteProject(id) {
+        if (!this.isAuthenticated()) return;
+        const headers = this.getHeaders();
+        axios.delete(getApiUrl(`projects/${id}`), {headers})
+            .then(response => {
+                this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
+            })
+            .catch(error => console.error(error));
+    }
+
+    createProject(props) {
+        if (!this.isAuthenticated()) return;
+        const headers = this.getHeaders();
+        props.users = [props.users, ];
+        axios.post(getApiUrl(`projects`), {...props}, {headers})
+            .then(response => {
+                this.setState({projects: [...this.state.projects, response.data]})
+            })
+            .catch(error => console.log(error))
+    }
+
+    updateProject(props) {
+        if (!this.isAuthenticated()) return;
+        const headers = this.getHeaders();
+        axios.patch(getApiUrl(`projects/${props.id}`), {...props}, {headers})
+            .then(response => {
+                this.setState({
+                    projects: this.state.projects.map((project) => {
+                        if (project.id === props.id) {
+                            project = {...props};
+                        }
+                        return project;
+                    })
+                })
+            })
+            .catch(error => console.error(error));
+    }
+
+
     render() {
         return (
             <Router>
@@ -171,13 +210,20 @@ class App extends React.Component {
                     <Route exact path='/projects' component={() => {
                         if (!this.isAuthenticated()) return <Redirect to='/login'/>;
                         return <ProjectList users={this.state.users}
-                                            projects={this.state.projects}/>;
+                                            projects={this.state.projects}
+                                            deleteProject={(id) => this.deleteProject(id)}/>;
+                    }}/>
+                    <Route exact path='/projects/create' component={() => {
+                        return <ProjectForm users={this.state.users}
+                                            createProject={(name, repoLink, user) => this.createProject(name, repoLink, user)}/>
                     }}/>
                     <Route path='/projects/:projectId' component={() => {
                         if (!this.isAuthenticated()) return <Redirect to='/login'/>;
                         return <ProjectNotesList users={this.state.users}
                                                  projects={this.state.projects}
                                                  notes={this.state.notes}
+                                                 deleteProject={(id) => this.deleteProject(id)}
+                                                 updateProject={(props) => this.updateProject(props)}
                                                  updateNote={(id) => this.updateNote(id)}/>
                     }}/>
                     <Route exact path='/notes' component={() => {
