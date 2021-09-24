@@ -11,6 +11,9 @@ class Project(models.Model):
     repository_url = models.URLField(blank=True)
     users = models.ManyToManyField(User)
 
+    class Meta:
+        ordering = ['pk']
+
     def __str__(self):
         return f'{self.name}'
 
@@ -25,3 +28,6 @@ class Note(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['pk']
