@@ -19,6 +19,9 @@ services:
     command: bash -c "
       ./wait-for-postgres.sh db
       && python manage.py migrate
+      && python manage.py create_users
+      && python manage.py create_projects
+      && python manage.py create_notes
       && gunicorn todo_notes.wsgi -b 0.0.0.0:8080
       "
     depends_on:
