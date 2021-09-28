@@ -17,7 +17,7 @@ services:
     ports:
       - 8080:8080
     command: bash -c "
-      ./wait-for-postgre.sh db
+      ./wait-for-postgres.sh db
       && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080
       "
