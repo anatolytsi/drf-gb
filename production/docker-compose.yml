@@ -14,8 +14,8 @@ services:
   backend:
     build:
       context: .
-    ports:
-      - 8080:8080
+    expose:
+      - 8080
     command: bash -c "
       ./wait-for-postgres.sh db
       && python manage.py migrate
@@ -23,3 +23,10 @@ services:
       "
     depends_on:
       - db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
