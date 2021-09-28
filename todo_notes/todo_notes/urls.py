@@ -45,7 +45,7 @@ router.register('notes', NoteModelViewSet)  # Register Note model view set with 
 router.register('projects', ProjectModelViewSet)  # Register Project model view set with the router
 
 urlpatterns = [
-    path('react/', TemplateView.as_view(template_name='index.html')),
+    path('', TemplateView.as_view(template_name='index.html')),
 
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),  # These urls are now determined automatically by the router
