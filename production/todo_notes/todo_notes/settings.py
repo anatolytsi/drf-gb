@@ -79,7 +79,8 @@ ROOT_URLCONF = 'todo_notes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'frontend/build/'],
+        # 'DIRS': [BASE_DIR / 'frontend/build/'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,16 +148,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'frontend/build/static',
-)
+# STATICFILES_DIRS = (
+#     BASE_DIR / 'frontend/build/static',
+# )
 
 AUTH_USER_MODEL = 'users.User'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000'
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+#     'http://127.0.0.1:3000'
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
