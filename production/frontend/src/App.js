@@ -13,7 +13,7 @@ import Cookies from 'universal-cookie/es6';
 import ProjectForm from "./components/ProjectForm";
 import NoteForm from "./components/NoteForm";
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'http://127.0.0.1:8000';
 const apiUrl = `${baseUrl}/api`;
 const getUrl = (path) => `${baseUrl}/${path}/`;
 const getApiUrl = (path) => `${apiUrl}/${path}/`;
